@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 class Result {
@@ -10,6 +11,9 @@ class Result {
         this.hand = hand;
         this.bestBoards = bestBoards;
         this.rank = rank;
+        for(ArrayList<Card> board : bestBoards) {
+            Collections.sort(board);
+        }
     }
     
     public void setHand(Hand hand) {
@@ -22,6 +26,9 @@ class Result {
 
     public void setBestBoards(List<ArrayList<Card>> bestBoards) {
         this.bestBoards = bestBoards; 
+        for(ArrayList<Card> board : this.bestBoards) {
+            Collections.sort(board);
+        }
     }
 
     public List<ArrayList<Card>> getBestBoards() {

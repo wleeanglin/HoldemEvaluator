@@ -2,17 +2,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 
 public class Main {
+    ArrayList<Hand> hands = new ArrayList<>();
+    ArrayList<Card> board = new ArrayList<>();
+
     public static void main(String[] args) {
         Main m = new Main(); 
         m.run();  
     }
 
     public void run(){
-        ArrayList<Hand> hands = new ArrayList<>();
-        ArrayList<Card> board = new ArrayList<>();
         Deck d = null;
         EvalLogic e  = new EvalLogic(); 
 
@@ -39,9 +41,12 @@ public class Main {
                                 board.add(c); 
                             }
                         }
+                        Collections.sort(board);
                         break;
                     case "calc":
-                        // e.calcWinners(hands, board);
+                        ArrayList<Result> calcResults = e.calcWinner(hands, board);
+                        printResults(calcResults, board);
+                        clear();
                         break;
                     case "deal":
                         d = new Deck(true);
@@ -54,8 +59,7 @@ public class Main {
                         d = new Deck(true);
                         d.debug(5);
                     case "clear":
-                        hands = new ArrayList<>();
-                        board = new ArrayList<>();
+                        clear();
                         break;
                     case "sim":
                         int n = 3; 
@@ -64,12 +68,13 @@ public class Main {
                             hands.add(new Hand(d));
                         }
                         board = d.board();
-                        ArrayList<Result> results = e.calcWinner(hands, board);
-                        System.out.printf("On board: ");
-                        printBoard(board);
-                        for(Result result : results) {
-                            result.printResult(); 
-                        }
+                        Collections.sort(board);
+                        ArrayList<Result> simResults = e.calcWinner(hands, board);
+                        printResults(simResults, board);
+                        clear();
+                        break;
+                    case "exit":
+                        System.exit(1); 
                     default:
                         System.err.println(line + ": not found");
                         break;
@@ -114,5 +119,18 @@ public class Main {
             System.out.printf("%s", card.getValueEncoded());
         }
         System.out.println();
+    }
+
+    public void printResults(ArrayList<Result> results, ArrayList<Card> board) {
+        System.out.printf("On board: ");
+        printBoard(board);
+        for(Result result : results) {
+            result.printResult(); 
+        }
+    }
+
+    public void clear() {
+        hands = new ArrayList<>();
+        board = new ArrayList<>();
     }
 }

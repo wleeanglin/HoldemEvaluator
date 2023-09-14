@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Hand {
     private ArrayList<Card> cards;
@@ -11,10 +12,12 @@ public class Hand {
         cards = new ArrayList<>();
         cards.add(d.deal());
         cards.add(d.deal());
+        sort(); 
     }
 
     public void addCard(Card c){
         cards.add(c);
+        sort();
     }
 
     public ArrayList<Card> getCards(){
@@ -27,5 +30,9 @@ public class Hand {
             handString += card.getValueEncoded();
         }
         return handString; 
+    }
+
+    private void sort() {
+        Collections.sort(cards);
     }
 }

@@ -29,9 +29,6 @@ public class Deck {
         return cards.size();
     }
 
-    //flop
-    //turn
-    //river
     public ArrayList<Card> board() {
         ArrayList<Card> board = new ArrayList<Card>(); 
         for(int i = 0; i < 5; i++) {

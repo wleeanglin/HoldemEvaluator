@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class Card {
+public class Card implements Comparable<Card>{
     private int value;
 
     private static final List<Character> ranks = List.of('2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A');
@@ -76,5 +76,22 @@ public class Card {
         public int getBitwiseRepresentation() {
             return this.ordinal();
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+
+        if(o == null || (this.getClass() != o.getClass())) {
+            return false;
+        }
+
+        Card oc = (Card) o;
+        return (oc.getValue() == this.getValue());
+    }
+
+    @Override
+    public int compareTo(Card o) {
+        return (-1) * Integer.compare(this.value, o.value); 
     }
 }
