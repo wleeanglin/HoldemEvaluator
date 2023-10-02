@@ -29,7 +29,7 @@ public class Main {
                         Optional.ofNullable(h).ifPresent(hands::add);
                         break;
                     case "board":
-                        while(board.size() <= 5) {
+                        while(board.size() < 5) {
                             line = reader.readLine();
                             if(line == null || line.equals("exit")) { 
                                 board = new ArrayList<>();
@@ -75,6 +75,8 @@ public class Main {
                         break;
                     case "exit":
                         System.exit(1); 
+                    case "help":
+                        printHelp();
                     default:
                         System.err.println(line + ": not found");
                         break;
@@ -132,5 +134,17 @@ public class Main {
     public void clear() {
         hands = new ArrayList<>();
         board = new ArrayList<>();
+    }
+
+    public void printHelp() {
+        System.out.println("Enter one of the following commands;");
+        System.out.println("    -hand: Enter a new hand");
+        System.out.println("    -board: Enter a new board");
+        System.out.println("    -calc: Determine winner from set up");
+        System.out.println("    -deal: deal 10 cards from a new deck");
+        System.out.println("    -clear: reset");
+        System.out.println("    -sim: Sim 3 random hands");
+        System.out.println("    -exit: End program");
+        System.out.println("    -help: Show this message");
     }
 }
